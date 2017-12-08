@@ -160,6 +160,15 @@ public class LandingFragment extends BaseFragment implements
         mUsername = prefs.getString(AirbitzApplication.LOGIN_NAME, "");
         mPositionNavBar = false;
         mAbcKeychain = mActivity.abcKeychain;
+
+        if (getResources().getBoolean(R.bool.auto_upload_logs)) {
+            boolean success = mCoreAPI.uploadLogs();
+            if (success) {
+                AirbitzCore.logi("Logs auto-uploaded");
+            } else {
+                AirbitzCore.logi("Error auto-uploading logs");
+            }
+        }
     }
 
     View mView;
